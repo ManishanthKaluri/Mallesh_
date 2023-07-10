@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDEO GALLERY</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'video/video_style.css' %}">
+    <style>
+        .thumbnail-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: flex-start;
+        }
+
+        .thumbnail-item {
+            flex-basis: calc(33.33% - 20px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Video Gallery</h1>
+    </header>
+    
+    <div class="thumbnail-gallery">
+        {% for video in videos %}
+        <div class="thumbnail-item" data-video-url="{{ video.video.url }}">
+            <video width="320" height="240" controls>
+                <source src="{{ video.video.url }}" type="video/mp4">
+            </video>
+            <h5>{{ video.title }}</h5>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="popup" id="video-popup">
+        <div class="popup-content">
+            <div class="close-icon" onclick="cancelVideo()"></div>
+            <video id="popup-video" width="640" height="480" controls></video>
+        </div>
+    </div>
+
+    <script src="{% static 'video/video_script.js' %}"></script>
+</body>
+</html>
